@@ -3,17 +3,17 @@
 <head>
     <title>Jam BMKG</title>
 </head>
-<body onload="init()" style="font-size:10vw; text-align:center; font-family:monospace;">
-    <div id="c">...</div>
+<body onload="init()" style="font-size:8vw; text-align:center; font-family:monospace;">
+    <div id="c">00.00.00</div>
 </body>
 <script>
     let diff = 0;
     async function init() {
         try {
             let t = Date.now();
-            let res = await fetch('https://allorigins.win');
-            let json = await res.json();
-            let m = json.contents.match(/(\d{2}):(\d{2}):(\d{2})/);
+            let res = await fetch('https://jam.bmkg.go.id/wib.bmkg');
+            let text = await res.text();
+            let m = text.match(/(\d{2}):(\d{2}):(\d{2})/);
             if (m) {
                 let s = new Date();
                 s.setHours(m[1], m[2], m[3]);
