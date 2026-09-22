@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jam BMKG</title>
+</head>
+<body onload="init()" style="font-size:10vw; text-align:center; font-family:monospace;">
+    <div id="c">...</div>
+</body>
+<script>
+    let diff = 0;
+    async function init() {
+        try {
+            let t = Date.now();
+            let res = await fetch('https://allorigins.win');
+            let json = await res.json();
+            let m = json.contents.match(/(\d{2}):(\d{2}):(\d{2})/);
+            if (m) {
+                let s = new Date();
+                s.setHours(m[1], m[2], m[3]);
+                diff = s - (t + (Date.now() - t) / 2);
+            }
+        } catch(e){}
+        setInterval(() => {
+            let d = new Date(Date.now() + diff);
+            document.getElementById('c').innerText = d.toTimeString().split(' ')[0];
+        }, 1000);
+    }
+</script>
+</html>
