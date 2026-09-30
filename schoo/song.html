@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <td colspan="2" bgcolor="pink">
-                   <span id="c" style="float: right; color: black; font-family: roboto, sans-serif; font-size: 16px; font-weight: bold; padding-right: 5px;">00:00:00</span>
+                 <span id="c" style="float: right; color: black; padding-right: 5px;">00:00:00</span>
                 <a href="./" style="color: black;">Beranda</a> |
                 <a href="about.html" style="color: black;">Profil Saya</a> |
                 <a href="school.html" style="color: black;">Sekolah Saya</a> |
@@ -54,27 +54,27 @@
     </table>
     <p>&nbsp;</p>
 
-    <script>
-    let diff = 0;
-    async function init() {
-        try {
-            let t = Date.now();
-            let res = await fetch('https://jam.bmkg.go.id/wib.bmkg');
-            let text = await res.text();
-            let m = text.match(/(\d{2}):(\d{2}):(\d{2})/);
-            if (m) {
-                let s = new Date();
-                s.setHours(m[1], m[2], m[3]);
-                diff = s - (t + (Date.now() - t) / 2);
-            }
-        } catch(e){}
-        setInterval(() => {
-            let d = new Date(Date.now() + diff);
-            document.getElementById('c').innerText = d.toTimeString().split(' ')[0];
-        }, 1000);
-    }
-</script>
-
+ <script>
+        let diff = 0;
+        async function init() {
+            try {
+                let t = Date.now();
+                let res = await fetch('https://bmkg.go.id');
+                let text = await res.text();
+                let m = text.match(/(\d{2}):(\d{2}):(\d{2})/);
+                if (m) {
+                    let s = new Date();
+                    s.setHours(parseInt(m[1]), parseInt(m[2]), parseInt(m[3]));
+                    diff = s - (t + (Date.now() - t) / 2);
+                }
+            } catch(e){}
+            setInterval(() => {
+                let d = new Date(Date.now() + diff);
+                document.getElementById('c').innerText = d.toTimeString().split(' ')[0];
+            }, 1000);
+        }
+        window.addEventListener('load', init);
+    </script>
     
 </body>
 
