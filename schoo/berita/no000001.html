@@ -20,10 +20,11 @@
         </tr>
         <tr>
             <td colspan="2" bgcolor="pink">
-                <a href="../" style="color: black;">Beranda</a> |
-                <a href="../about.html" style="color: black;">Profil Saya</a> |
-                <a href="../school.html" style="color: black;">Sekolah Saya</a> |
-                <a href="../song.html" style="color: black;">Lagu Favorit Saya</a>
+                <a href="https://jam.bmkg.go.id" style="color: black;"><span id="c" style="float: right; color: black; padding-right: 5px;">00:00:00</span></a>
+                <a href="../" style="color: black; text-decoration: none">Beranda</a> |
+                <a href="../about.html" style="color: black; text-decoration: none">Profil Saya</a> |
+                <a href="../school.html" style="color: black; text-decoration: none">Sekolah Saya</a> |
+                <a href="../song.html" style="color: black; text-decoration: none">Lagu Favorit Saya</a>
             </td>
         </tr>
         <tr>
@@ -32,7 +33,7 @@
                 <hr>
                 <h3>Kala Sang Pesawat Mencium Gedung</h3>
                 <p><small><em>Jumat, 11 September 2026</em></small></p>
-              <p><a href="../">Kembali ke Beranda.</a></p>
+              <p><a href="../"  style="text-decoration: none">&#10229; Kembali ke Beranda</a></p>
                 <p>Pada 11 September 2001, pukul 08.46 EDT (GMT-4) / Waktu New York, terjadi sebuah tragedi yang di mana pesawat American Airlines menabrak gedung World Trade Center (WTC) dengan sangat keras, kejadian itu sangat mencekam bagi warga New York dan juga warga dunia. Tragedi itu disebut Tragedi Serangan 11 September atau yang lebih dikenal sebagai "9/11".</p>
               <br>
                 <figure>
@@ -60,6 +61,29 @@
         </tr>
     </table>
     <p>&nbsp;</p>
+    
+ <script>
+        let diff = 0;
+        async function init() {
+            try {
+                let t = Date.now();
+                let res = await fetch('https://jam.bmkg.go.id/');
+                let text = await res.text();
+                let m = text.match(/(\d{2}):(\d{2}):(\d{2})/);
+                if (m) {
+                    let s = new Date();
+                    s.setHours(parseInt(m[1]), parseInt(m[2]), parseInt(m[3]));
+                    diff = s - (t + (Date.now() - t) / 2);
+                }
+            } catch(e){}
+            setInterval(() => {
+                let d = new Date(Date.now() + diff);
+                document.getElementById('c').innerText = d.toTimeString().split(' ')[0];
+            }, 1000);
+        }
+        window.addEventListener('load', init);
+    </script>
+    
 </body>
 
 </html>
